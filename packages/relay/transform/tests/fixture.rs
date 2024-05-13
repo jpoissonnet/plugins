@@ -8,16 +8,18 @@ use swc_relay::{relay, Config, OutputFileExtension, RelayLanguageConfig};
 fn fixture(input: PathBuf) {
     let output = input.parent().unwrap().join("output.js");
 
+    let config = Config {
+        artifact_directory: None,
+        language: RelayLanguageConfig::TypeScript,
+        eager_es_modules: false,
+        ..Default::default()
+    };
+
     test_fixture(
         Default::default(),
         &|_| {
             relay(
-                &Config {
-                    artifact_directory: None,
-                    language: RelayLanguageConfig::TypeScript,
-                    eager_es_modules: false,
-                    output_file_extension: OutputFileExtension::Undefined,
-                },
+                &config,
                 FileName::Real("file.js".parse().unwrap()),
                 Default::default(),
                 None,
@@ -34,16 +36,19 @@ fn fixture(input: PathBuf) {
 fn fixture_es_modules(input: PathBuf) {
     let output = input.parent().unwrap().join("output.js");
 
+    let config = Config {
+        artifact_directory: None,
+        language: RelayLanguageConfig::TypeScript,
+        eager_es_modules: true,
+        output_file_extension: OutputFileExtension::Undefined,
+        ..Default::default()
+    };
+
     test_fixture(
         Default::default(),
         &|_| {
             relay(
-                &Config {
-                    artifact_directory: None,
-                    language: RelayLanguageConfig::TypeScript,
-                    eager_es_modules: true,
-                    output_file_extension: OutputFileExtension::Undefined,
-                },
+                &config,
                 FileName::Real("file.js".parse().unwrap()),
                 Default::default(),
                 None,
@@ -60,16 +65,19 @@ fn fixture_es_modules(input: PathBuf) {
 fn fixture_output_file_extension_javascript(input: PathBuf) {
     let output = input.parent().unwrap().join("output.js");
 
+    let config = Config {
+        artifact_directory: None,
+        language: RelayLanguageConfig::TypeScript,
+        eager_es_modules: true,
+        output_file_extension: OutputFileExtension::JavaScript,
+        ..Default::default()
+    };
+
     test_fixture(
         Default::default(),
         &|_| {
             relay(
-                &Config {
-                    artifact_directory: None,
-                    language: RelayLanguageConfig::TypeScript,
-                    eager_es_modules: true,
-                    output_file_extension: OutputFileExtension::JavaScript,
-                },
+                &config,
                 FileName::Real("file.js".parse().unwrap()),
                 Default::default(),
                 None,
@@ -86,16 +94,19 @@ fn fixture_output_file_extension_javascript(input: PathBuf) {
 fn fixture_output_file_extension_typescript(input: PathBuf) {
     let output = input.parent().unwrap().join("output.js");
 
+    let config = Config {
+        artifact_directory: None,
+        language: RelayLanguageConfig::JavaScript,
+        eager_es_modules: true,
+        output_file_extension: OutputFileExtension::TypeScript,
+        ..Default::default()
+    };
+
     test_fixture(
         Default::default(),
         &|_| {
             relay(
-                &Config {
-                    artifact_directory: None,
-                    language: RelayLanguageConfig::JavaScript,
-                    eager_es_modules: true,
-                    output_file_extension: OutputFileExtension::TypeScript,
-                },
+                &config,
                 FileName::Real("file.js".parse().unwrap()),
                 Default::default(),
                 None,
