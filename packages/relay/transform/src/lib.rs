@@ -117,6 +117,18 @@ pub struct Config {
     pub eager_es_modules: bool,
     #[serde(default)]
     pub output_file_extension: OutputFileExtension,
+
+    #[serde(default)]
+    pub projects: Vec<ProjectConfig>,
+}
+
+#[derive(Deserialize, Debug, Default, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ProjectConfig {
+    #[serde(default)]
+    pub language: RelayLanguageConfig,
+    pub output: Option<PathBuf>,
+    pub schema: String,
 }
 
 fn pull_first_operation_name_from_tpl(tpl: &TaggedTpl) -> Option<String> {
