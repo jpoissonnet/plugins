@@ -6,7 +6,7 @@ use swc_core::{
     ecma::{ast::Program, visit::FoldWith},
     plugin::{plugin_transform, proxies::TransformPluginProgramMetadata},
 };
-use swc_relay::{relay, Config, OutputFileExtension, RelayLanguageConfig};
+use swc_relay::{relay, Config, OutputFileExtension, ProjectConfig, RelayLanguageConfig};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
@@ -24,6 +24,9 @@ struct WasmConfig {
 
     #[serde(default)]
     eager_es_modules: bool,
+
+    #[serde(default)]
+    projects: Vec<ProjectConfig>,
 }
 
 #[plugin_transform]
@@ -54,6 +57,7 @@ fn relay_plugin_transform(program: Program, metadata: TransformPluginProgramMeta
         language: plugin_config.language,
         eager_es_modules: plugin_config.eager_es_modules,
         output_file_extension: plugin_config.output_file_extension,
+        projects: plugin_config.projects,
     };
 
     let mut relay = relay(
