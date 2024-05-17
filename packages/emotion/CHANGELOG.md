@@ -1,5 +1,12 @@
 # @swc/plugin-emotion
 
+## 3.0.5
+
+### Patch Changes
+
+- 016c13b: Fix transform not applying to css calls inside of functions
+- 33d36cb: Publish a new version
+
 ## 3.0.4
 
 ### Patch Changes
